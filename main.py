@@ -1,7 +1,11 @@
+import os
 import discord
 from discord.ext import commands
-import wikipedia
 from datetime import datetime
+import wikipedia
+
+
+DISCORD_TOKEN = os.getenv("discord_token")
 
 # Create an auto-sharded bot instance with a command prefix and 5 shards
 intents = discord.Intents.all()
@@ -56,4 +60,4 @@ async def userinfo(ctx: commands.Context, user: discord.Member = None):
     embed.add_field(name='Joined Discord', value=user.created_at.strftime('%Y-%m-%d %H:%M:%S'), inline=False)
     await ctx.send(embed=embed)
 
-bot.run('MTE3NzYwMTMyMDc1NzIzMTYxNg.GnXFeA.WBUZFHbcOxQzoc4bl6BLtFWp0JaTHW7qtAbAyM')
+bot.run(DISCORD_TOKEN)
