@@ -33,17 +33,22 @@ bot = discord.AutoShardedClient(intents=intents)
 # Function to load all cogs listed in cogs.txt
 def load_cogs():
     cog_dir = "cogs"
+    cog_file_path = "cogs.txt"
     
-    with open("cogs.txt", "r") as file:
-        cogs = [line.strip() for line in file.readlines()]
+    # Check if cogs.txt exists and is not empty
+    if os.path.exists(cog_file_path) and os.path.getsize(cog_file_path) > 0:
+        with open(cog_file_path, "r") as file:
+            cogs = [line.strip() for line in file.readlines()]
 
-    for cog in cogs:
-        cog_path = os.path.join(cog_dir, cog + ".py")
-        try:
-            bot.load_extension(cog_path)
-            logger.info(f"Cog '{cog}' loaded successfully.")
-        except Exception as e:
-            logger.error(f"Error loading cog '{cog}': {e}")
+        for cog in cogs:
+            cog_path = os.path.join(cog_dir, cog + ".py")
+            try:
+                bot.load_extension(cog_path)
+                logger.info(f"Cog '{cog}' loaded successfully.")
+            except Exception as e:
+                logger.error(f"Error loading cog '{cog}': {e}")
+    else:
+        logger.warning("No cogs loaded. cogs.txt is either missing or empty.")
 
 # Load all cogs before the bot starts
 load_cogs()
@@ -55,4 +60,4 @@ async def on_ready():
     logger.info('------')
 
 # Run the bot
-bot.run(BOT_TOKEN)
+bot.run(bot_token)
