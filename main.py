@@ -7,8 +7,8 @@ from dotenv import load_dotenv
 # Load environment variables from the .env file
 load_dotenv()
 
-# Assign the path to the Python executable
-python_executable = "/usr/local/bin/python"
+# Get the bot token from the environment variable
+bot_token = os.getenv("DISCORD_TOKEN")
 
 # Create the "logs" directory if it doesn't exist
 log_dir = "logs"
@@ -54,8 +54,5 @@ async def on_ready():
     logger.info(f'Logged in as {bot.user.name} (ID: {bot.user.id})')
     logger.info('------')
 
-# Get the bot token from the environment variable
-bot_token = os.getenv("DISCORD_TOKEN")
-
 # Run the bot
-bot.run(bot_token)
+bot.run(BOT_TOKEN)
